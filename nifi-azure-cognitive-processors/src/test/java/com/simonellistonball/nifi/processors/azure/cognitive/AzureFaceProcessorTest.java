@@ -46,8 +46,8 @@ public class AzureFaceProcessorTest {
 
 		List<MockFlowFile> flowFiles = testRunner.getFlowFilesForRelationship(AzureFaceProcessor.REL_MATCHED);
 		for (MockFlowFile flowFile : flowFiles) {
-			flowFile.assertAttributeEquals("exposure", "goodExposure");
-			flowFile.assertAttributeEquals("emotion", "neutral");
+			flowFile.assertAttributeEquals("cognitive.face.exposure", "goodExposure");
+			flowFile.assertAttributeEquals("cognitive.face.emotion", "neutral");
 		}
 	}
 

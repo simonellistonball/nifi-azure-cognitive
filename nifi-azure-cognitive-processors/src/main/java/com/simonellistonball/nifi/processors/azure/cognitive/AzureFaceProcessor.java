@@ -284,6 +284,7 @@ public class AzureFaceProcessor extends AbstractProcessor {
 			for (JsonNode node : arrayNode) {
 				result.put("faceId", node.findValue("faceId").asText());
 				JsonNode faceAttributes = node.get("faceAttributes");
+
 				// find the top emotion
 				String emotion = null;
 				double maxScore = 0;
@@ -297,16 +298,16 @@ public class AzureFaceProcessor extends AbstractProcessor {
 					}
 				}
 				if (emotion != null) {
-					result.put("emotion", emotion);
+					result.put("cognitive.face.emotion", emotion);
 				}
-				// quality attributes
-				result.put("exposure", faceAttributes.get("exposure").findValue("exposureLevel").asText());
-				result.put("blur", faceAttributes.get("blur").findValue("blurLevel").asText());
-				result.put("noise", faceAttributes.get("noise").findValue("noiseLevel").asText());
 
+				// quality attributes
+				result.put("cognitive.face.exposure",
+						faceAttributes.get("exposure").findValue("exposureLevel").asText());
+				result.put("cognitive.face.blur", faceAttributes.get("blur").findValue("blurLevel").asText());
+				result.put("cognitive.face.noise", faceAttributes.get("noise").findValue("noiseLevel").asText());
 			}
 		}
-
 		return result;
 	}
 }

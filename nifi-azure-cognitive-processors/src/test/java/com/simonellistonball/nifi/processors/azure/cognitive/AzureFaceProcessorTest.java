@@ -38,7 +38,7 @@ public class AzureFaceProcessorTest {
 	public void testProcessor() {
 		testRunner.enqueue(getClass().getClassLoader().getResourceAsStream("face.jpg"));
 		testRunner.setProperty(AzureFaceProcessor.REGION, "westus");
-		testRunner.setProperty(AzureFaceProcessor.API_KEY, "9bba399f484548e9a11c03f3c5ce28c0");
+		testRunner.setProperty(AzureFaceProcessor.API_KEY, System.getProperty("FACE_API_KEY"));
 
 		testRunner.run();
 

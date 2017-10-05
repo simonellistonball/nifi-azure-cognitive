@@ -43,12 +43,9 @@ import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.apache.nifi.annotation.behavior.ReadsAttribute;
-import org.apache.nifi.annotation.behavior.ReadsAttributes;
 import org.apache.nifi.annotation.behavior.WritesAttribute;
 import org.apache.nifi.annotation.behavior.WritesAttributes;
 import org.apache.nifi.annotation.documentation.CapabilityDescription;
-import org.apache.nifi.annotation.documentation.SeeAlso;
 import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.annotation.lifecycle.OnScheduled;
 import org.apache.nifi.components.PropertyDescriptor;
@@ -68,10 +65,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Tags({ "face", "cognitive", "azure", "image" })
-@CapabilityDescription("Provide a description")
-@SeeAlso({})
-@ReadsAttributes({ @ReadsAttribute(attribute = "", description = "") })
-@WritesAttributes({ @WritesAttribute(attribute = AzureFaceProcessor.CONTENT_KEY, description = "JSON response") })
+@CapabilityDescription("Sends an image to the Azure cognitive service face detection api and returns the full result, along with extracted attributes which are useful to routing the image for further processing.")
+@WritesAttributes({ @WritesAttribute(attribute = AzureFaceProcessor.CONTENT_KEY, description = "JSON response"),
+		@WritesAttribute(attribute = "cognitive.face.emotion", description = "Most confident emotion in the face"),
+		@WritesAttribute(attribute = "cognitive.face.exposure", description = "Exposure level of the image"),
+		@WritesAttribute(attribute = "cognitive.face.blur", description = "Bluriness level of the image"),
+		@WritesAttribute(attribute = "cognitive.face.noise", description = "Noise level in the image") })
 public class AzureFaceProcessor extends AbstractProcessor {
 
 	protected static final String CONTENT_KEY = "cognitive.face.content";
